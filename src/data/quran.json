@@ -1,0 +1,972 @@
+{
+ "generatedAt": "2026-11-18",
+ "source": "api.quran.com v4",
+ "surahs": [
+  {
+   "number": 1,
+   "nameSimple": "Al-Fatihah",
+   "nameArabic": "الفاتحة",
+   "meaning": "The Opener",
+   "ayat": [
+    {
+     "key": "1:1",
+     "surah": 1,
+     "ayah": 1,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "بِسْمِ",
+       "translit": "bis'mi",
+       "gloss": "In (the) name"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱللَّهِ",
+       "translit": "l-lahi",
+       "gloss": "(of) Allah"
+      },
+      {
+       "pos": 3,
+       "ar": "ٱلرَّحْمَـٰنِ",
+       "translit": "l-raḥmāni",
+       "gloss": "the Most Gracious"
+      },
+      {
+       "pos": 4,
+       "ar": "ٱلرَّحِيمِ",
+       "translit": "l-raḥīmi",
+       "gloss": "the Most Merciful"
+      }
+     ],
+     "en": "In the name of Allāh, the Entirely Merciful, the Especially Merciful.",
+     "uz": "Mehribon va rahmli Allohning nomi bilan boshlayman."
+    },
+    {
+     "key": "1:2",
+     "surah": 1,
+     "ayah": 2,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "ٱلْحَمْدُ",
+       "translit": "al-ḥamdu",
+       "gloss": "All praises and thanks"
+      },
+      {
+       "pos": 2,
+       "ar": "لِلَّهِ",
+       "translit": "lillahi",
+       "gloss": "(be) to Allah"
+      },
+      {
+       "pos": 3,
+       "ar": "رَبِّ",
+       "translit": "rabbi",
+       "gloss": "the Lord"
+      },
+      {
+       "pos": 4,
+       "ar": "ٱلْعَـٰلَمِينَ",
+       "translit": "l-ʿālamīna",
+       "gloss": "of the universe"
+      }
+     ],
+     "en": "[All] praise is [due] to Allāh, Lord of the worlds -",
+     "uz": "Hamd olamlarning Robbi — Allohgadir."
+    },
+    {
+     "key": "1:3",
+     "surah": 1,
+     "ayah": 3,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "ٱلرَّحْمَـٰنِ",
+       "translit": "al-raḥmāni",
+       "gloss": "The Most Gracious"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلرَّحِيمِ",
+       "translit": "l-raḥīmi",
+       "gloss": "the Most Merciful"
+      }
+     ],
+     "en": "The Entirely Merciful, the Especially Merciful,",
+     "uz": "U Rohman va Rohiymdir."
+    },
+    {
+     "key": "1:4",
+     "surah": 1,
+     "ayah": 4,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "مَـٰلِكِ",
+       "translit": "māliki",
+       "gloss": "(The) Master"
+      },
+      {
+       "pos": 2,
+       "ar": "يَوْمِ",
+       "translit": "yawmi",
+       "gloss": "(of the) Day"
+      },
+      {
+       "pos": 3,
+       "ar": "ٱلدِّينِ",
+       "translit": "l-dīni",
+       "gloss": "(of the) Judgment"
+      }
+     ],
+     "en": "Sovereign of the Day of Recompense.",
+     "uz": "Jazo-mukofot kunining Egasidir."
+    },
+    {
+     "key": "1:5",
+     "surah": 1,
+     "ayah": 5,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "إِيَّاكَ",
+       "translit": "iyyāka",
+       "gloss": "You Alone"
+      },
+      {
+       "pos": 2,
+       "ar": "نَعْبُدُ",
+       "translit": "naʿbudu",
+       "gloss": "we worship"
+      },
+      {
+       "pos": 3,
+       "ar": "وَإِيَّاكَ",
+       "translit": "wa-iyyāka",
+       "gloss": "and You Alone"
+      },
+      {
+       "pos": 4,
+       "ar": "نَسْتَعِينُ",
+       "translit": "nastaʿīnu",
+       "gloss": "we ask for help"
+      }
+     ],
+     "en": "It is You we worship and You we ask for help.",
+     "uz": "Faqat Sengagina ibodat qilamiz va faqat Sendangina yordam so`raymiz."
+    },
+    {
+     "key": "1:6",
+     "surah": 1,
+     "ayah": 6,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "ٱهْدِنَا",
+       "translit": "ih'dinā",
+       "gloss": "Guide us"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلصِّرَٰطَ",
+       "translit": "l-ṣirāṭa",
+       "gloss": "(to) the path"
+      },
+      {
+       "pos": 3,
+       "ar": "ٱلْمُسْتَقِيمَ",
+       "translit": "l-mus'taqīma",
+       "gloss": "the straight"
+      }
+     ],
+     "en": "Guide us to the straight path -",
+     "uz": "Bizni to`g`ri yo`lga hidoyat qilgin."
+    },
+    {
+     "key": "1:7",
+     "surah": 1,
+     "ayah": 7,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "صِرَٰطَ",
+       "translit": "ṣirāṭa",
+       "gloss": "(The) path"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلَّذِينَ",
+       "translit": "alladhīna",
+       "gloss": "(of) those"
+      },
+      {
+       "pos": 3,
+       "ar": "أَنْعَمْتَ",
+       "translit": "anʿamta",
+       "gloss": "You have bestowed (Your) Favors"
+      },
+      {
+       "pos": 4,
+       "ar": "عَلَيْهِمْ",
+       "translit": "ʿalayhim",
+       "gloss": "on them"
+      },
+      {
+       "pos": 5,
+       "ar": "غَيْرِ",
+       "translit": "ghayri",
+       "gloss": "not (of)"
+      },
+      {
+       "pos": 6,
+       "ar": "ٱلْمَغْضُوبِ",
+       "translit": "l-maghḍūbi",
+       "gloss": "those who earned (Your) wrath"
+      },
+      {
+       "pos": 7,
+       "ar": "عَلَيْهِمْ",
+       "translit": "ʿalayhim",
+       "gloss": "on themselves"
+      },
+      {
+       "pos": 8,
+       "ar": "وَلَا",
+       "translit": "walā",
+       "gloss": "and not"
+      },
+      {
+       "pos": 9,
+       "ar": "ٱلضَّآلِّينَ",
+       "translit": "l-ḍālīna",
+       "gloss": "(of) those who go astray"
+      }
+     ],
+     "en": "The path of those upon whom You have bestowed favor, not of those who have earned [Your] anger or of those who are astray.",
+     "uz": "O`zing ne'mat berganlarning yo`liga. G`azabga qolganlarnikiga ham emas, adashganlarnikiga ham emas."
+    }
+   ]
+  },
+  {
+   "number": 103,
+   "nameSimple": "Al-'Asr",
+   "nameArabic": "العصر",
+   "meaning": "The Declining Day",
+   "ayat": [
+    {
+     "key": "103:1",
+     "surah": 103,
+     "ayah": 1,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "وَٱلْعَصْرِ",
+       "translit": "wal-ʿaṣri",
+       "gloss": "By the time"
+      }
+     ],
+     "en": "By time,",
+     "uz": "Asr bilan qasam."
+    },
+    {
+     "key": "103:2",
+     "surah": 103,
+     "ayah": 2,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "إِنَّ",
+       "translit": "inna",
+       "gloss": "Indeed"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلْإِنسَـٰنَ",
+       "translit": "l-insāna",
+       "gloss": "mankind"
+      },
+      {
+       "pos": 3,
+       "ar": "لَفِى",
+       "translit": "lafī",
+       "gloss": "(is) surely, in"
+      },
+      {
+       "pos": 4,
+       "ar": "خُسْرٍ",
+       "translit": "khus'rin",
+       "gloss": "loss"
+      }
+     ],
+     "en": "Indeed, mankind is in loss,",
+     "uz": "Albatta, inson xusrondadir."
+    },
+    {
+     "key": "103:3",
+     "surah": 103,
+     "ayah": 3,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "إِلَّا",
+       "translit": "illā",
+       "gloss": "Except"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلَّذِينَ",
+       "translit": "alladhīna",
+       "gloss": "those who"
+      },
+      {
+       "pos": 3,
+       "ar": "ءَامَنُوا۟",
+       "translit": "āmanū",
+       "gloss": "believe"
+      },
+      {
+       "pos": 4,
+       "ar": "وَعَمِلُوا۟",
+       "translit": "waʿamilū",
+       "gloss": "and do"
+      },
+      {
+       "pos": 5,
+       "ar": "ٱلصَّـٰلِحَـٰتِ",
+       "translit": "l-ṣāliḥāti",
+       "gloss": "righteous deeds"
+      },
+      {
+       "pos": 6,
+       "ar": "وَتَوَاصَوْا۟",
+       "translit": "watawāṣaw",
+       "gloss": "and enjoin (each other)"
+      },
+      {
+       "pos": 7,
+       "ar": "بِٱلْحَقِّ",
+       "translit": "bil-ḥaqi",
+       "gloss": "to the truth"
+      },
+      {
+       "pos": 8,
+       "ar": "وَتَوَاصَوْا۟",
+       "translit": "watawāṣaw",
+       "gloss": "and enjoin (each other)"
+      },
+      {
+       "pos": 9,
+       "ar": "بِٱلصَّبْرِ",
+       "translit": "bil-ṣabri",
+       "gloss": "to [the] patience"
+      }
+     ],
+     "en": "Except for those who have believed and done righteous deeds and advised each other to truth and advised each other to patience.",
+     "uz": "Illo, iymon keltirganlar va solih amallar qilganlar, bir-birlarini haq yo`lga chaqirganlar va bir-birlarini sabrga chaqirganlar (undoq emasdir)."
+    }
+   ]
+  },
+  {
+   "number": 108,
+   "nameSimple": "Al-Kawthar",
+   "nameArabic": "الكوثر",
+   "meaning": "The Abundance",
+   "ayat": [
+    {
+     "key": "108:1",
+     "surah": 108,
+     "ayah": 1,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "إِنَّآ",
+       "translit": "innā",
+       "gloss": "Indeed, We"
+      },
+      {
+       "pos": 2,
+       "ar": "أَعْطَيْنَـٰكَ",
+       "translit": "aʿṭaynāka",
+       "gloss": "We have given you"
+      },
+      {
+       "pos": 3,
+       "ar": "ٱلْكَوْثَرَ",
+       "translit": "l-kawthara",
+       "gloss": "Al-Kauthar"
+      }
+     ],
+     "en": "Indeed, We have granted you, [O Muḥammad], al-Kawthar.",
+     "uz": "Albatta, Biz senga Kavsarni berdik."
+    },
+    {
+     "key": "108:2",
+     "surah": 108,
+     "ayah": 2,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "فَصَلِّ",
+       "translit": "faṣalli",
+       "gloss": "So pray"
+      },
+      {
+       "pos": 2,
+       "ar": "لِرَبِّكَ",
+       "translit": "lirabbika",
+       "gloss": "to your Lord"
+      },
+      {
+       "pos": 3,
+       "ar": "وَٱنْحَرْ",
+       "translit": "wa-in'ḥar",
+       "gloss": "and sacrifice"
+      }
+     ],
+     "en": "So pray to your Lord and offer sacrifice [to Him alone].",
+     "uz": "Bas, Robbingga namoz o`qi va jonliq so`y."
+    },
+    {
+     "key": "108:3",
+     "surah": 108,
+     "ayah": 3,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "إِنَّ",
+       "translit": "inna",
+       "gloss": "Indeed"
+      },
+      {
+       "pos": 2,
+       "ar": "شَانِئَكَ",
+       "translit": "shāni-aka",
+       "gloss": "your enemy"
+      },
+      {
+       "pos": 3,
+       "ar": "هُوَ",
+       "translit": "huwa",
+       "gloss": "he (is)"
+      },
+      {
+       "pos": 4,
+       "ar": "ٱلْأَبْتَرُ",
+       "translit": "l-abtaru",
+       "gloss": "the one cut off"
+      }
+     ],
+     "en": "Indeed, your enemy is the one cut off.",
+     "uz": "Albatta, seni yomon ko`rib ayblovchining o`zining orqasi kesik."
+    }
+   ]
+  },
+  {
+   "number": 112,
+   "nameSimple": "Al-Ikhlas",
+   "nameArabic": "الإخلاص",
+   "meaning": "The Sincerity",
+   "ayat": [
+    {
+     "key": "112:1",
+     "surah": 112,
+     "ayah": 1,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "قُلْ",
+       "translit": "qul",
+       "gloss": "Say"
+      },
+      {
+       "pos": 2,
+       "ar": "هُوَ",
+       "translit": "huwa",
+       "gloss": "He"
+      },
+      {
+       "pos": 3,
+       "ar": "ٱللَّهُ",
+       "translit": "l-lahu",
+       "gloss": "(is) Allah"
+      },
+      {
+       "pos": 4,
+       "ar": "أَحَدٌ",
+       "translit": "aḥadun",
+       "gloss": "the One"
+      }
+     ],
+     "en": "Say, \"He is Allāh, [who is] One,",
+     "uz": "Ayt: «U Alloh yagonadir."
+    },
+    {
+     "key": "112:2",
+     "surah": 112,
+     "ayah": 2,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "ٱللَّهُ",
+       "translit": "al-lahu",
+       "gloss": "Allah"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلصَّمَدُ",
+       "translit": "l-ṣamadu",
+       "gloss": "the Eternal, the Absolute"
+      }
+     ],
+     "en": "Allāh, the Eternal Refuge.",
+     "uz": "Alloh — Comaddir."
+    },
+    {
+     "key": "112:3",
+     "surah": 112,
+     "ayah": 3,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "لَمْ",
+       "translit": "lam",
+       "gloss": "Not"
+      },
+      {
+       "pos": 2,
+       "ar": "يَلِدْ",
+       "translit": "yalid",
+       "gloss": "He begets"
+      },
+      {
+       "pos": 3,
+       "ar": "وَلَمْ",
+       "translit": "walam",
+       "gloss": "and not"
+      },
+      {
+       "pos": 4,
+       "ar": "يُولَدْ",
+       "translit": "yūlad",
+       "gloss": "He is begotten"
+      }
+     ],
+     "en": "He neither begets nor is born,",
+     "uz": "U tug`magan va tug`ilmagan."
+    },
+    {
+     "key": "112:4",
+     "surah": 112,
+     "ayah": 4,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "وَلَمْ",
+       "translit": "walam",
+       "gloss": "And not"
+      },
+      {
+       "pos": 2,
+       "ar": "يَكُن",
+       "translit": "yakun",
+       "gloss": "is"
+      },
+      {
+       "pos": 3,
+       "ar": "لَّهُۥ",
+       "translit": "lahu",
+       "gloss": "for Him"
+      },
+      {
+       "pos": 4,
+       "ar": "كُفُوًا",
+       "translit": "kufuwan",
+       "gloss": "equivalent"
+      },
+      {
+       "pos": 5,
+       "ar": "أَحَدٌۢ",
+       "translit": "aḥadun",
+       "gloss": "any [one]"
+      }
+     ],
+     "en": "Nor is there to Him any equivalent.\"",
+     "uz": "Va Unga hech kim teng bo`lmagan»."
+    }
+   ]
+  },
+  {
+   "number": 113,
+   "nameSimple": "Al-Falaq",
+   "nameArabic": "الفلق",
+   "meaning": "The Daybreak",
+   "ayat": [
+    {
+     "key": "113:1",
+     "surah": 113,
+     "ayah": 1,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "قُلْ",
+       "translit": "qul",
+       "gloss": "Say"
+      },
+      {
+       "pos": 2,
+       "ar": "أَعُوذُ",
+       "translit": "aʿūdhu",
+       "gloss": "I seek refuge"
+      },
+      {
+       "pos": 3,
+       "ar": "بِرَبِّ",
+       "translit": "birabbi",
+       "gloss": "in (the) Lord"
+      },
+      {
+       "pos": 4,
+       "ar": "ٱلْفَلَقِ",
+       "translit": "l-falaqi",
+       "gloss": "(of) the dawn"
+      }
+     ],
+     "en": "Say, \"I seek refuge in the Lord of daybreak",
+     "uz": "«Tong Robbisidan panoh so`rayman."
+    },
+    {
+     "key": "113:2",
+     "surah": 113,
+     "ayah": 2,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "مِن",
+       "translit": "min",
+       "gloss": "From"
+      },
+      {
+       "pos": 2,
+       "ar": "شَرِّ",
+       "translit": "sharri",
+       "gloss": "(the) evil"
+      },
+      {
+       "pos": 3,
+       "ar": "مَا",
+       "translit": "mā",
+       "gloss": "(of) what"
+      },
+      {
+       "pos": 4,
+       "ar": "خَلَقَ",
+       "translit": "khalaqa",
+       "gloss": "He created"
+      }
+     ],
+     "en": "From the evil of that which He created",
+     "uz": "U yaratgan narsalar yomonligidan."
+    },
+    {
+     "key": "113:3",
+     "surah": 113,
+     "ayah": 3,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "وَمِن",
+       "translit": "wamin",
+       "gloss": "And from"
+      },
+      {
+       "pos": 2,
+       "ar": "شَرِّ",
+       "translit": "sharri",
+       "gloss": "(the) evil"
+      },
+      {
+       "pos": 3,
+       "ar": "غَاسِقٍ",
+       "translit": "ghāsiqin",
+       "gloss": "(of) darkness"
+      },
+      {
+       "pos": 4,
+       "ar": "إِذَا",
+       "translit": "idhā",
+       "gloss": "when"
+      },
+      {
+       "pos": 5,
+       "ar": "وَقَبَ",
+       "translit": "waqaba",
+       "gloss": "it spreads"
+      }
+     ],
+     "en": "And from the evil of darkness when it settles",
+     "uz": "Va kirib kelgan qorong`u kechaning yomonligidan."
+    },
+    {
+     "key": "113:4",
+     "surah": 113,
+     "ayah": 4,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "وَمِن",
+       "translit": "wamin",
+       "gloss": "And from"
+      },
+      {
+       "pos": 2,
+       "ar": "شَرِّ",
+       "translit": "sharri",
+       "gloss": "(the) evil"
+      },
+      {
+       "pos": 3,
+       "ar": "ٱلنَّفَّـٰثَـٰتِ",
+       "translit": "l-nafāthāti",
+       "gloss": "(of) the blowers"
+      },
+      {
+       "pos": 4,
+       "ar": "فِى",
+       "translit": "fī",
+       "gloss": "in"
+      },
+      {
+       "pos": 5,
+       "ar": "ٱلْعُقَدِ",
+       "translit": "l-ʿuqadi",
+       "gloss": "the knots"
+      }
+     ],
+     "en": "And from the evil of the blowers in knots",
+     "uz": "Va tugunlarga dam soluvchilar yomonligidan."
+    },
+    {
+     "key": "113:5",
+     "surah": 113,
+     "ayah": 5,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "وَمِن",
+       "translit": "wamin",
+       "gloss": "And from"
+      },
+      {
+       "pos": 2,
+       "ar": "شَرِّ",
+       "translit": "sharri",
+       "gloss": "(the) evil"
+      },
+      {
+       "pos": 3,
+       "ar": "حَاسِدٍ",
+       "translit": "ḥāsidin",
+       "gloss": "(of) an envier"
+      },
+      {
+       "pos": 4,
+       "ar": "إِذَا",
+       "translit": "idhā",
+       "gloss": "when"
+      },
+      {
+       "pos": 5,
+       "ar": "حَسَدَ",
+       "translit": "ḥasada",
+       "gloss": "he envies"
+      }
+     ],
+     "en": "And from the evil of an envier when he envies.\"",
+     "uz": "Va hasad qilgan hasadchining yomonligidan», deb ayt."
+    }
+   ]
+  },
+  {
+   "number": 114,
+   "nameSimple": "An-Nas",
+   "nameArabic": "الناس",
+   "meaning": "Mankind",
+   "ayat": [
+    {
+     "key": "114:1",
+     "surah": 114,
+     "ayah": 1,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "قُلْ",
+       "translit": "qul",
+       "gloss": "Say"
+      },
+      {
+       "pos": 2,
+       "ar": "أَعُوذُ",
+       "translit": "aʿūdhu",
+       "gloss": "I seek refuge"
+      },
+      {
+       "pos": 3,
+       "ar": "بِرَبِّ",
+       "translit": "birabbi",
+       "gloss": "in (the) Lord"
+      },
+      {
+       "pos": 4,
+       "ar": "ٱلنَّاسِ",
+       "translit": "l-nāsi",
+       "gloss": "(of) mankind"
+      }
+     ],
+     "en": "Say, \"I seek refuge in the Lord of mankind,",
+     "uz": "«Odamlar Robbisidan..."
+    },
+    {
+     "key": "114:2",
+     "surah": 114,
+     "ayah": 2,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "مَلِكِ",
+       "translit": "maliki",
+       "gloss": "(The) King"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلنَّاسِ",
+       "translit": "l-nāsi",
+       "gloss": "(of) mankind"
+      }
+     ],
+     "en": "The Sovereign of mankind,",
+     "uz": "Odamlar podshohidan..."
+    },
+    {
+     "key": "114:3",
+     "surah": 114,
+     "ayah": 3,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "إِلَـٰهِ",
+       "translit": "ilāhi",
+       "gloss": "(The) God"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلنَّاسِ",
+       "translit": "l-nāsi",
+       "gloss": "(of) mankind"
+      }
+     ],
+     "en": "The God of mankind,",
+     "uz": "Odamlar Ilohidan panoh so`rayman..."
+    },
+    {
+     "key": "114:4",
+     "surah": 114,
+     "ayah": 4,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "مِن",
+       "translit": "min",
+       "gloss": "From"
+      },
+      {
+       "pos": 2,
+       "ar": "شَرِّ",
+       "translit": "sharri",
+       "gloss": "(the) evil"
+      },
+      {
+       "pos": 3,
+       "ar": "ٱلْوَسْوَاسِ",
+       "translit": "l-waswāsi",
+       "gloss": "(of) the whisperer"
+      },
+      {
+       "pos": 4,
+       "ar": "ٱلْخَنَّاسِ",
+       "translit": "l-khanāsi",
+       "gloss": "the one who withdraws"
+      }
+     ],
+     "en": "From the evil of the retreating whisperer -",
+     "uz": "Berkinib, ko`rinib turuvchi vasvasachining..."
+    },
+    {
+     "key": "114:5",
+     "surah": 114,
+     "ayah": 5,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "ٱلَّذِى",
+       "translit": "alladhī",
+       "gloss": "The one who"
+      },
+      {
+       "pos": 2,
+       "ar": "يُوَسْوِسُ",
+       "translit": "yuwaswisu",
+       "gloss": "whispers"
+      },
+      {
+       "pos": 3,
+       "ar": "فِى",
+       "translit": "fī",
+       "gloss": "in"
+      },
+      {
+       "pos": 4,
+       "ar": "صُدُورِ",
+       "translit": "ṣudūri",
+       "gloss": "(the) breasts"
+      },
+      {
+       "pos": 5,
+       "ar": "ٱلنَّاسِ",
+       "translit": "l-nāsi",
+       "gloss": "(of) mankind"
+      }
+     ],
+     "en": "Who whispers [evil] into the breasts of mankind -",
+     "uz": "Odamlar qalblariga vasvasa soladiganning..."
+    },
+    {
+     "key": "114:6",
+     "surah": 114,
+     "ayah": 6,
+     "words": [
+      {
+       "pos": 1,
+       "ar": "مِنَ",
+       "translit": "mina",
+       "gloss": "From"
+      },
+      {
+       "pos": 2,
+       "ar": "ٱلْجِنَّةِ",
+       "translit": "l-jinati",
+       "gloss": "the jinn"
+      },
+      {
+       "pos": 3,
+       "ar": "وَٱلنَّاسِ",
+       "translit": "wal-nāsi",
+       "gloss": "and men"
+      }
+     ],
+     "en": "From among the jinn and mankind\".",
+     "uz": "Jinlar va odamlardan bo`lganning yomonligidan», deb ayt."
+    }
+   ]
+  }
+ ]
+}
