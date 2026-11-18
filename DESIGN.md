@@ -11,6 +11,8 @@
 | `--border` / `--border-strong` | #D5D9DE / ~#8A929C | #2E333A / #6B737D | dividers / control edges (≥ 3:1) |
 | `--accent` (lapis) | #1E4A8A | #8DB4F0 | primary action, current tab, selection only |
 | `--role-ism / fil / harf` | teal / rust / olive | lightened | word-type labels, always with the word "ism/fiʿl/ḥarf" |
+| `--pencil` | oklch(46% .035 70) | oklch(78% .04 75) | your notes: text, label, ruled lines |
+| `--tutor` | oklch(47% .09 300) | oklch(78% .08 300) | Curialy AI label and 2px rule only |
 | `--ok` / `--bad` | green / red | lightened | feedback, always icon + word |
 
 `npm run contrast` checks every pair in both themes.
@@ -25,10 +27,14 @@
 ## Layout
 Phone: one column, 16px gutters, fixed bottom tabs (≥ 44px targets). Desktop ≥ 960px: 220px rail, 720px content column. Session is full-screen, no tabs, sticky bottom action.
 
+## Lesson and notes
+Lesson page is a chapter: header, objectives, numbered sections, Remember, words. At ≥1120px a 680px column plus a sticky 300px notes margin; below it, a Notes pill jumps to the notes. Notes textareas are ruled (`--note-rule`, line-height 1.75). AI output (when added) uses a 2px `--tutor` rule and a 12px “Curialy AI” label.
+
 ## Motion
 Functional only. 150ms colour/opacity/border transitions, 240ms progress bar, 180ms underline `scaleX` on correct word, 120ms step crossfade. Reduced motion: no transforms, opacity ≤ 150ms.
 
 ## Deliberately not
 1. The generic "Islamic app" look (emerald + gold, mosques, arabesque, crescents).
 2. Gamification noise (XP leagues, mascots, hearts, confetti, guilt copy). The streak is calm and forgiving: 3 answers keep it, freezes cover a missed day.
-3. Cream paper + serif display + amber accent, identical shadowed cards, ALL-CAPS eyebrows, emoji icons, glass panels.
+3. Chat UI: no chat bubbles, input or floating assistant; every AI call is one button with one result.
+4. Cream paper + serif display + amber accent, identical shadowed cards, ALL-CAPS eyebrows, emoji icons, glass panels.

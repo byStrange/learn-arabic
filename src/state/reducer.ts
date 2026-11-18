@@ -1,6 +1,6 @@
-import { getLesson } from '../content/lessons';
+import { LESSONS, getLesson } from '../content/lessons';
 import { grade, introduceCards } from '../lib/srs';
-import { defaultState, type AppState, type Settings } from '../lib/storage';
+import { NOTE_KEY, NOTE_MAX, defaultState, type AppState, type Note, type Settings } from '../lib/storage';
 import { MIN_ITEMS, earnFreeze, reconcile } from '../lib/streak';
 
 export type Action =
@@ -8,9 +8,35 @@ export type Action =
   | { type: 'completeStep'; lessonId: string; stepIndex: number }
   | { type: 'completeLesson'; lessonId: string; today: string }
   | { type: 'setSettings'; settings: Partial<Settings> }
+  | { type: 'setNote'; key: string; text: string; at: string; source?: Note['source'] }
   | { type: 'importState'; state: AppState }
   | { type: 'reconcile'; today: string }
   | { type: 'reset' };
+
+/**
+ * Lessons grow over time. A finished lesson gains any review/vocab cards it did not have (due tomorrow),
+ * and a started lesson's step index is clamped to the lesson's current length.
+ */
+export function migrateLessons(state: AppState, today: string): AppState {
+  let cards = state.cards;
+  let lessons = state.lessons;
+  for (const lesson of LESSONS) {
+    const lp = state.lessons[lesson.id];
+    if (!lp) continue;
+    if (lp.status === 'done') {
+      for (const c of introduceCards(lesson, today)) {
+        if (!cards[c.id]) {
+          if (cards === state.cards) cards = { ...cards };
+          cards[c.id] = c;
+        }
+      }
+    } else if (lp.status === 'started' && lp.stepIndex > lesson.steps.length - 1) {
+      if (lessons === state.lessons) lessons = { ...lessons };
+      lessons[lesson.id] = { ...lp, stepIndex: lesson.steps.length - 1 };
+    }
+  }
+  return cards === state.cards && lessons === state.lessons ? state : { ...state, cards, lessons };
+}
 
 export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -67,8 +93,19 @@ export function reducer(state: AppState, action: Action): AppState {
       return { ...state, settings: { ...state.settings, ...action.settings } };
     case 'importState':
       return action.state;
+    case 'setNote': {
+      if (!NOTE_KEY.test(action.key)) return state;
+      if (!action.text.trim()) {
+        if (!state.notes[action.key]) return state;
+        const { [action.key]: _gone, ...rest } = state.notes;
+        void _gone;
+        return { ...state, notes: rest };
+      }
+      const note: Note = { text: action.text.slice(0, NOTE_MAX), updatedAt: action.at, ...(action.source ? { source: action.source } : {}) };
+      return { ...state, notes: { ...state.notes, [action.key]: note } };
+    }
     case 'reconcile':
-      return reconcile(state, action.today);
+      return migrateLessons(reconcile(state, action.today), action.today);
     case 'reset':
       return defaultState();
   }

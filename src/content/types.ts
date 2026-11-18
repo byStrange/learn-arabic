@@ -55,18 +55,45 @@ export type TapExercise = {
   explain: string;
 };
 
-export type Exercise = ChoiceExercise | TapExercise;
+/** Label each listed word on one axis. There is no stored answer: it is computed from the annotations. */
+export type ClassifyAxis = 'role' | 'case' | 'state';
+export type ClassifyExercise = {
+  kind: 'classify';
+  id: string;
+  prompt: string;
+  ref: Ref;
+  axis: ClassifyAxis;
+  /** word positions (1-based) */
+  positions: number[];
+  explain: string;
+};
+
+/** Pair 3–5 Quran words with their glosses. The answer is the word's own gloss. */
+export type MatchExercise = {
+  kind: 'match';
+  id: string;
+  prompt: string;
+  words: WordKey[];
+  explain: string;
+};
+
+export type Exercise = ChoiceExercise | TapExercise | ClassifyExercise | MatchExercise;
 
 export type ConceptStep = {
   kind: 'concept';
   title: string;
   body: string[];
   bridges?: { en?: string; uz?: string };
+  /** A "Watch out" callout: the usual mistake with this idea. */
+  pitfall?: string;
 };
 export type ExampleStep = { kind: 'example'; ref: Ref; highlight: number[]; note: string };
 export type ReadStep = { kind: 'read'; ref: Ref };
 
-export type Step = ConceptStep | ExampleStep | Exercise | ReadStep;
+/** A teach-back prompt. Not graded; the user writes a note and may compare with the model bullets. */
+export type ReflectStep = { kind: 'reflect'; id: string; prompt: string; model: string[] };
+
+export type Step = ConceptStep | ExampleStep | Exercise | ReadStep | ReflectStep;
 
 export type Lesson = {
   id: string;
@@ -74,6 +101,10 @@ export type Lesson = {
   title: string;
   arabicTerm: string;
   summary: string;
+  /** 2–4 "you will be able to…" lines */
+  objectives: string[];
+  /** 3–5 lines shown at the end ("Remember") */
+  takeaways: string[];
   steps: Step[];
   vocab: WordKey[];
   review: Exercise[];

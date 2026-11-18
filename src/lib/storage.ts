@@ -26,12 +26,18 @@ export type Settings = {
   reminderTime: string;
 };
 
+/** A user's (or the AI tutor's) note. Keys: lesson:<id>, ayah:<key>, reflect:<stepId>, sheet:<lessonId>. */
+export type Note = { text: string; updatedAt: string; source?: 'ai' };
+export const NOTE_KEY = /^(lesson|ayah|reflect|sheet):[\w:.-]+$/;
+export const NOTE_MAX = 20000;
+
 export type AppState = {
   version: 1;
   settings: Settings;
   lessons: Record<string, LessonProgress>;
   cards: Record<string, Card>;
   days: Record<string, DayRecord>;
+  notes: Record<string, Note>;
   freezes: number;
   lastSeen?: string;
 };
@@ -43,6 +49,7 @@ export function defaultState(): AppState {
     lessons: {},
     cards: {},
     days: {},
+    notes: {},
     freezes: 0,
   };
 }
@@ -100,12 +107,26 @@ export function parseState(raw: unknown): AppState | null {
     days[d] = { items: num(v.items), correct: num(v.correct), ...(v.frozen === true ? { frozen: true } : {}) };
   }
 
+  // Older exports have no notes: treat as none. Drop anything malformed.
+  const notes: AppState['notes'] = {};
+  if (isObj(raw.notes)) {
+    for (const [k, v] of Object.entries(raw.notes)) {
+      if (!NOTE_KEY.test(k) || !isObj(v) || typeof v.text !== 'string' || !v.text.trim()) continue;
+      notes[k] = {
+        text: v.text.slice(0, NOTE_MAX),
+        updatedAt: typeof v.updatedAt === 'string' && !Number.isNaN(Date.parse(v.updatedAt)) ? v.updatedAt : new Date(0).toISOString(),
+        ...(v.source === 'ai' ? { source: 'ai' as const } : {}),
+      };
+    }
+  }
+
   return {
     version: 1,
     settings,
     lessons,
     cards,
     days,
+    notes,
     freezes: Math.min(2, Math.max(0, num(raw.freezes))),
     ...(typeof raw.lastSeen === 'string' && DATE.test(raw.lastSeen) ? { lastSeen: raw.lastSeen } : {}),
   };

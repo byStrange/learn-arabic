@@ -6,7 +6,7 @@ import { drillsForAyah, vocabExercise } from './drill';
 import { dueCards } from './srs';
 import { GOAL_ANSWERS, type AppState } from './storage';
 
-export type SessionSource = 'review' | 'lesson' | 'drill' | 'mini' | 'practice';
+export type SessionSource = 'review' | 'lesson' | 'drill' | 'mini' | 'practice' | 'ai';
 
 export type SessionItem = {
   /** unique within a session */
@@ -20,7 +20,7 @@ export type SessionItem = {
   cardId?: string;
 };
 
-export type SessionKind = 'daily' | 'mini' | 'reviews' | 'practice';
+export type SessionKind = 'daily' | 'mini' | 'reviews' | 'practice' | 'lesson' | 'ai';
 
 export const FIRST_REVIEWS = 6;
 export const MINI_DRILLS = 3;
@@ -61,10 +61,10 @@ export function nextLesson(state: AppState) {
   return LESSONS.find((l) => state.lessons[l.id]?.status !== 'done');
 }
 
-export function lessonItems(state: AppState, lessonId: string): SessionItem[] {
+export function lessonItems(state: AppState, lessonId: string, restart = false): SessionItem[] {
   const lesson = getLesson(lessonId);
   if (!lesson) return [];
-  const from = Math.min(state.lessons[lessonId]?.stepIndex ?? 0, lesson.steps.length - 1);
+  const from = restart ? 0 : Math.min(state.lessons[lessonId]?.stepIndex ?? 0, lesson.steps.length - 1);
   return lesson.steps.slice(from).map((step, i) => ({
     key: `l:${lessonId}:${from + i}`,
     source: 'lesson' as const,
@@ -72,6 +72,30 @@ export function lessonItems(state: AppState, lessonId: string): SessionItem[] {
     lessonId,
     stepIndex: from + i,
   }));
+}
+
+/** Only this lesson's steps: from where you stopped, or from step 1 when it is finished ("Study again"). */
+export function buildLessonSession(state: AppState, lessonId: string): SessionItem[] {
+  return lessonItems(state, lessonId, state.lessons[lessonId]?.status === 'done');
+}
+
+export const AI_PRACTICE_PREFIX = 'qg:ai-practice:';
+
+/** The checked questions the AI practice set saved in sessionStorage for this lesson. */
+export function buildAiSession(lessonId: string): SessionItem[] {
+  let list: unknown;
+  try {
+    list = JSON.parse(sessionStorage.getItem(`${AI_PRACTICE_PREFIX}${lessonId}`) ?? 'null');
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(list)) return [];
+  const out: SessionItem[] = [];
+  for (const e of list as Exercise[]) {
+    if (!e || typeof e.id !== 'string' || !['choice', 'tap', 'classify'].includes(e.kind)) continue;
+    out.push({ key: `ai:${e.id}`, source: 'ai', step: e, lessonId });
+  }
+  return out;
 }
 
 export function candidateAyat(state: AppState): string[] {
@@ -170,10 +194,11 @@ export function buildPracticeSession(state: AppState, today: string, lessonId: s
 }
 
 export function isQuestion(item: SessionItem): boolean {
-  return item.step.kind === 'choice' || item.step.kind === 'tap';
+  const k = item.step.kind;
+  return k === 'choice' || k === 'tap' || k === 'classify' || k === 'match';
 }
 
-const MINUTES: Record<string, number> = { concept: 0.6, example: 0.5, read: 0.4, choice: 0.3, tap: 0.4 };
+const MINUTES: Record<string, number> = { concept: 0.6, example: 0.5, read: 0.4, choice: 0.3, tap: 0.4, classify: 0.6, match: 0.5, reflect: 1.0 };
 
 export type SessionSummary = {
   items: number;

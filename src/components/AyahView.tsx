@@ -1,15 +1,13 @@
 import { useMemo } from 'react';
-import type { Part, Ref, Role } from '../content/types';
+import type { Ref, Role } from '../content/types';
+import { mainRole } from '../lib/features';
 import { resolveRef, type RefWord } from '../lib/refs';
 import type { TranslationPref } from '../lib/storage';
 import { useWordSheet } from './WordSheet';
 
 export const ROLE_LABEL: Record<Role, string> = { ism: 'ism', fil: 'fiʿl', harf: 'ḥarf' };
 
-/** The part whose colour represents the word: first non-ḥarf part, else the first. */
-export function mainRole(parts: Part[]): Role {
-  return (parts.find((p) => p.type !== 'harf') ?? parts[0]).type;
-}
+export { mainRole };
 
 type Props = {
   reference: Ref;

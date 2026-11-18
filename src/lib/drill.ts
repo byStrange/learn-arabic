@@ -1,7 +1,7 @@
-import { getNote } from '../content/annotations';
-import type { ChoiceExercise, Part, TapExercise } from '../content/types';
+import type { ChoiceExercise, TapExercise } from '../content/types';
 import { allWordKeys, getAyah, getWord, plainGloss } from '../data/quran';
 import { seededShuffle } from './date';
+import { positionsWith, type Feature } from './features';
 import { vocabCardId } from './srs';
 
 export type DrillKind = 'fil' | 'harfJarr' | 'jarr' | 'definite';
@@ -21,23 +21,11 @@ const EXPLAIN: Record<DrillKind, string> = {
   definite: 'These isms are definite: a name, or with al-. Pronouns are left out of this drill.',
 };
 
-function matches(kind: DrillKind, p: Part): boolean {
-  switch (kind) {
-    case 'fil':
-      return p.type === 'fil';
-    case 'harfJarr':
-      return p.type === 'harf' && /preposition|oath/.test(p.label);
-    case 'jarr':
-      return p.type === 'ism' && p.case === 'jarr';
-    case 'definite':
-      return p.type === 'ism' && p.state === 'definite' && !/pronoun/.test(p.label);
-  }
-}
+const FEATURE: Record<DrillKind, Feature> = { fil: 'role:fil', harfJarr: 'harfJarr', jarr: 'case:jarr', definite: 'state:definite' };
 
 /** Word positions in an ayah that satisfy a drill kind, from the annotations. */
 export function drillAnswer(ayahKey: string, kind: DrillKind): number[] {
-  const ayah = getAyah(ayahKey);
-  return ayah.words.filter((w) => getNote(`${ayahKey}:${w.pos}`).parts.some((p) => matches(kind, p))).map((w) => w.pos);
+  return positionsWith({ kind: 'ayah', key: ayahKey }, FEATURE[kind]);
 }
 
 /**

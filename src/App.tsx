@@ -1,8 +1,10 @@
 import { useEffect, useRef, type ReactNode } from 'react';
-import { BookOpen, ChartNoAxesColumn, Route as RouteIcon, Sun } from 'lucide-react';
+import { BookOpen, ChartNoAxesColumn, NotebookPen, Route as RouteIcon, Sun } from 'lucide-react';
 import { WordSheetProvider } from './components/WordSheet';
 import { navigate, useRoute, type Route } from './lib/router';
 import { Lesson } from './screens/Lesson';
+import { AiProvider } from './lib/ai/AiContext';
+import { Notes } from './screens/Notes';
 import { Onboarding } from './screens/Onboarding';
 import { Path } from './screens/Path';
 import { Progress } from './screens/Progress';
@@ -14,9 +16,11 @@ import { AppProvider, useApp } from './state/AppState';
 export default function App() {
   return (
     <AppProvider>
-      <WordSheetProvider>
-        <Shell />
-      </WordSheetProvider>
+      <AiProvider>
+        <WordSheetProvider>
+          <Shell />
+        </WordSheetProvider>
+      </AiProvider>
     </AppProvider>
   );
 }
@@ -45,6 +49,7 @@ function Shell() {
       {route.name === 'path' && <Path />}
       {route.name === 'lesson' && <Lesson id={route.id} />}
       {route.name === 'read' && <Read surah={route.surah} />}
+      {route.name === 'notes' && <Notes />}
       {route.name === 'progress' && <Progress />}
     </Layout>
   );
@@ -54,6 +59,7 @@ const NAV = [
   { id: 'today', href: '#/today', label: 'Today', Icon: Sun },
   { id: 'path', href: '#/path', label: 'Path', Icon: RouteIcon },
   { id: 'read', href: '#/read', label: 'Read', Icon: BookOpen },
+  { id: 'notes', href: '#/notes', label: 'Notes', Icon: NotebookPen },
   { id: 'progress', href: '#/progress', label: 'Progress', Icon: ChartNoAxesColumn },
 ] as const;
 

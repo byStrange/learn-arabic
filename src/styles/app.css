@@ -156,7 +156,7 @@ button.word:hover { background: color-mix(in oklch, var(--ink) 6%, transparent);
 .exercise { display: flex; flex-direction: column; gap: var(--sp-6); }
 .exercise__prompt { font-size: var(--fs-20); line-height: var(--lh-head); max-width: var(--read-max); }
 .exercise__tag { display: inline-block; margin-inline-end: var(--sp-2); font-size: var(--fs-12); font-weight: 500; padding: 0 var(--sp-2); border: 1px solid var(--border-strong); border-radius: var(--r-chip); color: var(--ink-muted); vertical-align: 2px; }
-.exercise__hint { font-size: var(--fs-14); }
+.exercise__hint { font-size: var(--fs-16); }
 .options { display: flex; flex-direction: column; gap: var(--sp-2); }
 .option {
   position: relative; display: flex; align-items: center; gap: var(--sp-3);

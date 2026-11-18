@@ -30,6 +30,8 @@
   --role-ism: var(--teal-600);
   --role-fil: var(--rust-600);
   --role-harf: var(--olive-600);
+  --pencil: oklch(46% 0.035 70);
+  --tutor: oklch(47% 0.09 300);
   --ok: var(--green-600);
   --bad: var(--red-600);
 
@@ -38,6 +40,10 @@
   --accent-wash: color-mix(in oklch, var(--accent) 10%, var(--paper));
   --bad-wash: color-mix(in oklch, var(--bad) 8%, var(--surface-raised));
   --ok-wash: color-mix(in oklch, var(--ok) 8%, var(--surface-raised));
+
+  --note-wash: color-mix(in oklch, var(--pencil) 5%, var(--surface-raised));
+  --note-rule: color-mix(in oklch, var(--pencil) 14%, transparent);
+  --tutor-wash: color-mix(in oklch, var(--tutor) 6%, var(--surface-raised));
 
   /* type */
   --font-ui: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
@@ -102,6 +108,8 @@
     --olive-600: oklch(81% 0.115 94);
     --green-600: oklch(77.9% 0.13 153);
     --red-600: oklch(74.5% 0.127 26);
+    --pencil: oklch(78% 0.04 75);
+    --tutor: oklch(78% 0.08 300);
     --on-accent: oklch(21.7% 0.044 257);
     --accent-hover: color-mix(in oklch, var(--accent), white 12%);
     --accent-pressed: color-mix(in oklch, var(--accent), white 20%);
