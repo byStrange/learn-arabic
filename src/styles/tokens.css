@@ -1,0 +1,110 @@
+/* Qalam design tokens: OKLCH primitives -> semantic tokens (light + dark).
+   scripts/contrast.mjs parses this file, so keep values as oklch() / var() / #hex. */
+
+:root {
+  /* primitives: neutrals (cool, hue ~254) */
+  --n-0: oklch(100% 0 0);
+  --n-50: oklch(97.5% 0.003 100);
+  --n-200: oklch(88.4% 0.008 254);
+  --n-400: oklch(63% 0.018 254);
+  --n-600: oklch(48.9% 0.019 254);
+  --n-900: oklch(23.7% 0.011 254);
+  /* primitives: lapis blue + roles + status */
+  --lapis-600: oklch(41.5% 0.117 258);
+  --teal-600: oklch(48.3% 0.086 178);
+  --rust-600: oklch(48.9% 0.148 34);
+  --olive-600: oklch(49.6% 0.096 93);
+  --green-600: oklch(51.2% 0.125 150);
+  --red-600: oklch(50% 0.182 30);
+
+  /* semantic: light */
+  --paper: var(--n-50);
+  --surface-raised: var(--n-0);
+  --ink: var(--n-900);
+  --ink-muted: var(--n-600);
+  --border: var(--n-200);
+  --border-strong: var(--n-400);
+  --accent: var(--lapis-600);
+  --on-accent: var(--n-0);
+  --focus: var(--lapis-600);
+  --role-ism: var(--teal-600);
+  --role-fil: var(--rust-600);
+  --role-harf: var(--olive-600);
+  --ok: var(--green-600);
+  --bad: var(--red-600);
+
+  --accent-hover: color-mix(in oklch, var(--accent), black 12%);
+  --accent-pressed: color-mix(in oklch, var(--accent), black 20%);
+  --accent-wash: color-mix(in oklch, var(--accent) 10%, var(--paper));
+  --bad-wash: color-mix(in oklch, var(--bad) 8%, var(--surface-raised));
+  --ok-wash: color-mix(in oklch, var(--ok) 8%, var(--surface-raised));
+
+  /* type */
+  --font-ui: 'IBM Plex Sans', 'Segoe UI', system-ui, sans-serif;
+  --font-ar: 'Amiri Quran', 'Noto Naskh Arabic', serif;
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-32: clamp(1.75rem, 1.4rem + 1.2vw, 2.25rem);
+  --fs-ayah: clamp(1.875rem, 1.5rem + 1.6vw, 2.75rem);
+  --fs-word: clamp(1.5rem, 1.3rem + 0.8vw, 2rem);
+  --lh-body: 1.6;
+  --lh-head: 1.2;
+  --lh-label: 1.35;
+  --lh-ar: 2.1;
+
+  /* space (4px base) */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-12: 3rem;
+  --sp-16: 4rem;
+
+  /* radius + elevation */
+  --r-chip: 4px;
+  --r-ctl: 8px;
+  --r-sheet: 16px;
+  --shadow-nav: 0 -2px 12px color-mix(in oklch, var(--ink) 10%, transparent);
+
+  /* motion */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur-fast: 150ms;
+  --dur-bar: 240ms;
+  --dur-underline: 180ms;
+  --dur-step: 120ms;
+
+  /* layout */
+  --nav-h: 64px;
+  --rail-w: 220px;
+  --col-max: 720px;
+  --read-max: 65ch;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --n-0: oklch(22.9% 0.009 256);
+    --n-50: oklch(19% 0.007 258);
+    --n-200: oklch(31.9% 0.014 257);
+    --n-400: oklch(55.2% 0.018 254);
+    --n-600: oklch(73.8% 0.017 254);
+    --n-900: oklch(93.6% 0.005 258);
+    --lapis-600: oklch(76.4% 0.097 259);
+    --teal-600: oklch(76.1% 0.104 179);
+    --rust-600: oklch(73.8% 0.13 34);
+    --olive-600: oklch(81% 0.115 94);
+    --green-600: oklch(77.9% 0.13 153);
+    --red-600: oklch(74.5% 0.127 26);
+    --on-accent: oklch(21.7% 0.044 257);
+    --accent-hover: color-mix(in oklch, var(--accent), white 12%);
+    --accent-pressed: color-mix(in oklch, var(--accent), white 20%);
+    --shadow-nav: 0 -2px 12px color-mix(in oklch, black 40%, transparent);
+  }
+}
