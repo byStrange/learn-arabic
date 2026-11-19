@@ -1,6 +1,23 @@
+import { useState } from 'react';
+import { Pencil } from 'lucide-react';
+import { NotesPanel } from '../components/NotesPanel';
 import { AyahView } from '../components/AyahView';
 import { getSurah, surahs } from '../data/quran';
 import { useApp } from '../state/AppState';
+
+function AyahNote({ ayahKey }: { ayahKey: string }) {
+  const { state } = useApp();
+  const has = !!state.notes[`ayah:${ayahKey}`];
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="ayah-note">
+      <button type="button" className="link-quiet ayah-note__toggle" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+        <Pencil aria-hidden="true" size={16} /> {has ? 'Your note' : 'Add a note'}
+      </button>
+      {(open || has) && <NotesPanel anchor={`ayah:${ayahKey}`} label={`Note on ${ayahKey}`} compact />}
+    </div>
+  );
+}
 
 export function Read({ surah }: { surah?: number }) {
   const { state, dispatch } = useApp();
@@ -39,7 +56,10 @@ export function Read({ surah }: { surah?: number }) {
 
       <div className="read__list">
         {current.ayat.map((a) => (
-          <AyahView key={a.key} reference={{ kind: 'ayah', key: a.key }} revealed openable showGlosses={state.settings.showGlosses} translation={state.settings.translation} />
+          <div key={a.key}>
+              <AyahView reference={{ kind: 'ayah', key: a.key }} revealed openable showGlosses={state.settings.showGlosses} translation={state.settings.translation} />
+              <AyahNote ayahKey={a.key} />
+            </div>
         ))}
       </div>
     </div>

@@ -4,6 +4,8 @@ import App from './App';
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/app.css';
+import './styles/lesson.css';
+import './styles/lesson.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

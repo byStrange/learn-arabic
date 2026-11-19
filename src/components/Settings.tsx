@@ -1,21 +1,13 @@
 import { useState, type ChangeEvent } from 'react';
-import { Download, Trash2, Upload } from 'lucide-react';
+import { Download, Eye, EyeOff, Trash2, Upload } from 'lucide-react';
 import { surahs } from '../data/quran';
+import { download } from '../lib/download';
 import { buildReminderIcs } from '../lib/ics';
+import { listModels } from '../lib/ai/client';
+import { useAi } from '../lib/ai/AiContext';
 import { exportJson, importJson, GOAL_ANSWERS, type AppState, type Goal, type TranslationPref } from '../lib/storage';
 import { useApp } from '../state/AppState';
 import { ConfirmDialog } from './ConfirmDialog';
-
-function download(name: string, text: string, type: string) {
-  const url = URL.createObjectURL(new Blob([text], { type }));
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
 
 export function Settings() {
   const { state, dispatch, today, persistent } = useApp();
@@ -23,6 +15,28 @@ export function Settings() {
   const [pending, setPending] = useState<AppState | null>(null);
   const [importError, setImportError] = useState('');
   const [resetOpen, setResetOpen] = useState(false);
+  const ai = useAi();
+  const [keyText, setKeyText] = useState('');
+  const [showKey, setShowKey] = useState(false);
+  const [models, setModels] = useState<string[]>([]);
+  const [model, setModel] = useState('');
+  const [aiStatus, setAiStatus] = useState('');
+  const [busy, setBusy] = useState(false);
+  const connect = async () => {
+    setBusy(true);
+    setAiStatus('');
+    try {
+      const ids = await listModels(keyText.trim());
+      const pick = ids.find((i) => /mini|haiku|flash|small/i.test(i)) ?? ids[0];
+      setModels(ids);
+      setModel(pick);
+      ai.setConfig({ key: keyText.trim(), model: pick });
+      setAiStatus(`Connected. ${ids.length} models available.`);
+    } catch (e) {
+      setAiStatus(e instanceof Error ? e.message : 'Could not connect.');
+    }
+    setBusy(false);
+  };
   const set = (settings: Partial<typeof s>) => dispatch({ type: 'setSettings', settings });
 
   const onFile = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -99,6 +113,68 @@ export function Settings() {
           </div>
         </fieldset>
 
+        <fieldset className="field ai-settings">
+          <legend>Curialy AI</legend>
+          <p className="hint">
+            Optional. Qalam can use your Curialy Developer API key for explanations, fresh practice and feedback on your notes. The key stays in this browser, requests go straight to curialy.tech and are charged to your Curialy API balance. It is never in your progress export.{' '}
+            <a href="https://curialy.tech/docs" target="_blank" rel="noreferrer">
+              Curialy docs
+            </a>
+          </p>
+          {ai.ready && <p role="status">Connected. Model: {ai.config?.model}.</p>}
+          <div className="row">
+            <label htmlFor="ai-key" className="visually-hidden">
+              Curialy API key
+            </label>
+            <input id="ai-key" className="input" type={showKey ? 'text' : 'password'} autoComplete="off" placeholder="Curialy API key" value={keyText} onChange={(e) => setKeyText(e.target.value)} />
+            <button type="button" className="icon-btn" aria-label={showKey ? 'Hide key' : 'Show key'} aria-pressed={showKey} onClick={() => setShowKey((v) => !v)}>
+              {showKey ? <EyeOff aria-hidden="true" size={20} /> : <Eye aria-hidden="true" size={20} />}
+            </button>
+            <button type="button" className="btn btn--secondary" disabled={busy || !keyText.trim()} onClick={connect}>
+              Connect
+            </button>
+          </div>
+          {(models.length > 0 || ai.config) && (
+            <div className="row">
+              <label htmlFor="ai-model">Model</label>
+              <select
+                id="ai-model"
+                className="input"
+                value={model || ai.config?.model || ''}
+                onChange={(e) => {
+                  setModel(e.target.value);
+                  if (ai.config) ai.setConfig({ key: ai.config.key, model: e.target.value });
+                }}
+              >
+                {(models.length ? models : ai.config ? [ai.config.model] : []).map((m) => (
+                  <option key={m}>{m}</option>
+                ))}
+              </select>
+            </div>
+          )}
+          {aiStatus && (
+            <p className="hint" role="status">
+              {aiStatus}
+            </p>
+          )}
+          {(ai.ready || keyText) && (
+            <p>
+              <button
+                type="button"
+                className="btn btn--danger-quiet"
+                onClick={() => {
+                  ai.clear();
+                  setKeyText('');
+                  setModels([]);
+                  setAiStatus('Key forgotten.');
+                }}
+              >
+                Forget key
+              </button>
+            </p>
+          )}
+        </fieldset>
+
         <div className="field">
           <p className="field__label" id="reminder-l">
             Daily reminder
@@ -158,11 +234,15 @@ export function Settings() {
         onCancel={() => setResetOpen(false)}
         onConfirm={() => {
           dispatch({ type: 'reset' });
+          ai.clear();
+          setKeyText('');
+          setModels([]);
+          setAiStatus('');
           setResetOpen(false);
           window.location.hash = '#/onboarding';
         }}
       >
-        <p>This clears your streak, lessons, reviews and settings from this browser. Export first if you might want it back.</p>
+        <p>This clears your streak, lessons, reviews, notes and settings from this browser, and forgets your Curialy AI key. Export first if you might want it back.</p>
       </ConfirmDialog>
     </section>
   );

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { LESSONS } from '../src/content/lessons';
 import { getAyah } from '../src/data/quran';
-import { buildDailySession, buildMiniSession, buildPracticeSession, buildReviewSession } from '../src/lib/session';
+import { buildAiSession, buildDailySession, buildLessonSession, buildMiniSession, buildPracticeSession, buildReviewSession } from '../src/lib/session';
 import { introduceCards, type Card } from '../src/lib/srs';
 import { defaultState, type AppState } from '../src/lib/storage';
 
@@ -94,6 +94,56 @@ describe('other sessions', () => {
   it('practice session covers a lesson’s exercises', () => {
     const items = buildPracticeSession(defaultState(), T, 'l3');
     expect(items.length).toBeGreaterThanOrEqual(5);
-    expect(items.every((i) => i.step.kind === 'choice' || i.step.kind === 'tap')).toBe(true);
+    expect(items.every((i) => ['choice', 'tap', 'classify', 'match'].includes(i.step.kind))).toBe(true);
+  });
+});
+
+describe('lesson and AI sessions', () => {
+  it('lesson session resumes, and restarts at step 1 once finished', () => {
+    const s = defaultState();
+    s.lessons.l2 = { status: 'started', stepIndex: 4, correct: 0, total: 0 };
+    const resumed = buildLessonSession(s, 'l2');
+    expect(resumed[0].stepIndex).toBe(4);
+    expect(resumed.every((i) => i.lessonId === 'l2' && i.source === 'lesson')).toBe(true);
+    s.lessons.l2 = { status: 'done', stepIndex: LESSONS[1].steps.length, correct: 1, total: 1 };
+    const again = buildLessonSession(s, 'l2');
+    expect(again[0].stepIndex).toBe(0);
+    expect(again.length).toBe(LESSONS[1].steps.length);
+    expect(s.lessons.l2.status).toBe('done');
+  });
+  it('AI session reads the saved questions and is empty without them', () => {
+    sessionStorage.clear();
+    expect(buildAiSession('l5')).toEqual([]);
+    const q = { kind: 'tap', id: 'ai:l5:1', prompt: 'p', ref: { kind: 'ayah', key: '112:1' }, answer: [1], explain: 'e' };
+    sessionStorage.setItem('qg:ai-practice:l5', JSON.stringify([q]));
+    const items = buildAiSession('l5');
+    expect(items.length).toBe(1);
+    expect(items[0].source).toBe('ai');
+    expect(items[0].cardId).toBeUndefined();
+  });
+});
+
+describe('lesson and AI sessions', () => {
+  it('lesson session resumes, and restarts at step 1 once finished', () => {
+    const s = defaultState();
+    s.lessons.l2 = { status: 'started', stepIndex: 4, correct: 0, total: 0 };
+    const resumed = buildLessonSession(s, 'l2');
+    expect(resumed[0].stepIndex).toBe(4);
+    expect(resumed.every((i) => i.lessonId === 'l2' && i.source === 'lesson')).toBe(true);
+    s.lessons.l2 = { status: 'done', stepIndex: LESSONS[1].steps.length, correct: 1, total: 1 };
+    const again = buildLessonSession(s, 'l2');
+    expect(again[0].stepIndex).toBe(0);
+    expect(again.length).toBe(LESSONS[1].steps.length);
+    expect(s.lessons.l2.status).toBe('done');
+  });
+  it('AI session reads the saved questions and is empty without them', () => {
+    sessionStorage.clear();
+    expect(buildAiSession('l5')).toEqual([]);
+    const q = { kind: 'tap', id: 'ai:l5:1', prompt: 'p', ref: { kind: 'ayah', key: '112:1' }, answer: [1], explain: 'e' };
+    sessionStorage.setItem('qg:ai-practice:l5', JSON.stringify([q]));
+    const items = buildAiSession('l5');
+    expect(items.length).toBe(1);
+    expect(items[0].source).toBe('ai');
+    expect(items[0].cardId).toBeUndefined();
   });
 });

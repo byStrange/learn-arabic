@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 export type Route =
   | { name: 'today' }
   | { name: 'onboarding' }
-  | { name: 'session'; kind: 'daily' | 'mini' | 'reviews' | 'practice'; lessonId?: string }
+  | { name: 'session'; kind: 'daily' | 'mini' | 'reviews' | 'practice' | 'lesson' | 'ai'; lessonId?: string }
   | { name: 'path' }
   | { name: 'lesson'; id: string }
   | { name: 'read'; surah?: number }
+  | { name: 'notes' }
   | { name: 'progress' };
 
 export function parseHash(hash: string): Route {
@@ -19,6 +20,8 @@ export function parseHash(hash: string): Route {
       if (parts[1] === 'mini') return { name: 'session', kind: 'mini' };
       if (parts[1] === 'reviews') return { name: 'session', kind: 'reviews' };
       if (parts[1] === 'practice' && parts[2]) return { name: 'session', kind: 'practice', lessonId: parts[2] };
+      if (parts[1] === 'lesson' && parts[2]) return { name: 'session', kind: 'lesson', lessonId: parts[2] };
+      if (parts[1] === 'ai' && parts[2]) return { name: 'session', kind: 'ai', lessonId: parts[2] };
       return { name: 'session', kind: 'daily' };
     case 'path':
       return { name: 'path' };
@@ -26,6 +29,8 @@ export function parseHash(hash: string): Route {
       return parts[1] ? { name: 'lesson', id: parts[1] } : { name: 'path' };
     case 'read':
       return { name: 'read', surah: parts[1] && /^\d+$/.test(parts[1]) ? Number(parts[1]) : undefined };
+    case 'notes':
+      return { name: 'notes' };
     case 'progress':
       return { name: 'progress' };
     default:

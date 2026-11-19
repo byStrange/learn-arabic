@@ -56,10 +56,12 @@ describe('hadith', () => {
   });
 });
 
-import { LESSONS, lessonExercises } from '../src/content/lessons';
+import { LESSONS, UNITS, lessonExercises, stepExercises } from '../src/content/lessons';
 import { getHadith } from '../src/content/hadith';
-import { hasAyah } from '../src/data/quran';
-import type { Ref } from '../src/content/types';
+import { hasAyah, plainGloss } from '../src/data/quran';
+import type { Ref, Step } from '../src/content/types';
+import { wordValue } from '../src/lib/features';
+import { resolveRef } from '../src/lib/refs';
 
 function wordCount(ref: Ref): number {
   return ref.kind === 'ayah' ? allAyat().find((a) => a.key === ref.key)!.words.length : getHadith(ref.id).words.length;
@@ -68,27 +70,44 @@ function refOk(ref: Ref): boolean {
   return ref.kind === 'ayah' ? hasAyah(ref.key) : hadith.some((h) => h.id === ref.id);
 }
 
+/** Three or more Arabic letters in a row (marks allowed in between). */
+const ARABIC_WORD = /[\u0621-\u064A][\u064B-\u065F]*[\u0621-\u064A][\u064B-\u065F]*[\u0621-\u064A]/;
+
 describe('lessons', () => {
-  it('has ten ordered lessons', () => {
+  it('has ten ordered lessons in three units', () => {
     expect(LESSONS.map((l) => l.order)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     expect(new Set(LESSONS.map((l) => l.id)).size).toBe(10);
+    expect(UNITS.flatMap((u) => u.lessons)).toEqual(LESSONS.map((l) => l.id));
   });
 
   it('each lesson has the right shape', () => {
     for (const l of LESSONS) {
-      expect(l.steps.length, l.id).toBeGreaterThanOrEqual(6);
-      expect(l.steps.length, l.id).toBeLessThanOrEqual(9);
+      expect(l.steps.length, l.id).toBeGreaterThanOrEqual(12);
+      expect(l.steps.length, l.id).toBeLessThanOrEqual(22);
       expect(l.steps[l.steps.length - 1].kind, l.id).toBe('read');
-      expect(l.vocab.length, l.id).toBeGreaterThanOrEqual(3);
-      expect(l.vocab.length, l.id).toBeLessThanOrEqual(6);
-      expect(l.review.length, l.id).toBeGreaterThanOrEqual(3);
-      expect(l.review.length, l.id).toBeLessThanOrEqual(4);
-      const ex = l.steps.filter((s) => s.kind === 'choice' || s.kind === 'tap');
-      expect(ex.length, l.id).toBeGreaterThanOrEqual(2);
+      const reflects = l.steps.filter((s) => s.kind === 'reflect');
+      expect(reflects.length, `${l.id} reflect`).toBe(1);
+      expect(l.steps[l.steps.length - 2].kind, `${l.id} reflect just before read`).toBe('reflect');
+      expect(l.objectives.length, l.id).toBeGreaterThanOrEqual(2);
+      expect(l.objectives.length, l.id).toBeLessThanOrEqual(4);
+      expect(l.takeaways.length, l.id).toBeGreaterThanOrEqual(3);
+      expect(l.takeaways.length, l.id).toBeLessThanOrEqual(5);
+      expect(l.vocab.length, l.id).toBeGreaterThanOrEqual(4);
+      expect(l.vocab.length, l.id).toBeLessThanOrEqual(8);
+      expect(l.review.length, l.id).toBeGreaterThanOrEqual(4);
+      expect(l.review.length, l.id).toBeLessThanOrEqual(6);
+      const ex = stepExercises(l);
+      expect(ex.length, l.id).toBeGreaterThanOrEqual(7);
+      expect(new Set(ex.map((e) => e.kind)).size, `${l.id} kinds`).toBeGreaterThanOrEqual(3);
       expect(ex.some((s) => s.kind === 'tap'), l.id).toBe(true);
       const concepts = l.steps.flatMap((s) => (s.kind === 'concept' ? [s] : []));
+      expect(concepts.length, l.id).toBeGreaterThanOrEqual(2);
+      expect(concepts.length, l.id).toBeLessThanOrEqual(3);
+      expect(concepts.some((c) => c.pitfall), `${l.id} pitfall`).toBe(true);
       expect(concepts.some((c) => c.bridges?.en), `${l.id} en bridge`).toBe(true);
       expect(concepts.some((c) => c.bridges?.uz), `${l.id} uz bridge`).toBe(true);
+      const examples = l.steps.filter((s) => s.kind === 'example');
+      expect(examples.length, `${l.id} examples`).toBeGreaterThanOrEqual(3);
     }
   });
 
@@ -96,13 +115,17 @@ describe('lessons', () => {
     const vocabOk = (k: string) => expect(annotations[k], k).toBeDefined();
     for (const l of LESSONS) {
       l.vocab.forEach(vocabOk);
-      for (const s of [...l.steps, ...l.review]) {
-        if (s.kind === 'concept') continue;
-        const ref = s.kind === 'choice' ? s.ref : s.ref;
+      for (const s of [...l.steps, ...l.review] as Step[]) {
+        if (s.kind === 'match') {
+          for (const k of s.words) expect(annotations[k], `${s.id} ${k}`).toBeDefined();
+          continue;
+        }
+        if (s.kind === 'concept' || s.kind === 'reflect') continue;
+        const ref = 'ref' in s ? s.ref : undefined;
         if (!ref) continue;
         expect(refOk(ref), `${l.id} ref`).toBe(true);
         const n = wordCount(ref);
-        const positions = s.kind === 'tap' ? s.answer : s.kind === 'choice' || s.kind === 'example' ? (s.highlight ?? []) : [];
+        const positions = s.kind === 'tap' ? s.answer : s.kind === 'classify' ? s.positions : s.kind === 'choice' || s.kind === 'example' ? (s.highlight ?? []) : [];
         for (const p of positions) {
           expect(p, `${l.id} position ${p}`).toBeGreaterThanOrEqual(1);
           expect(p, `${l.id} position ${p}`).toBeLessThanOrEqual(n);
@@ -111,26 +134,61 @@ describe('lessons', () => {
     }
   });
 
-  it('choice answers are in range and exercise ids are unique', () => {
+  it('exercise ids are unique, choice answers in range, tap answers non-empty', () => {
     const ids: string[] = [];
     for (const l of LESSONS) {
       for (const e of lessonExercises(l)) {
         ids.push(e.id);
         if (e.kind === 'choice') {
-          expect(e.answer).toBeGreaterThanOrEqual(0);
-          expect(e.answer).toBeLessThan(e.options.length);
-        } else {
+          expect(e.answer, e.id).toBeGreaterThanOrEqual(0);
+          expect(e.answer, e.id).toBeLessThan(e.options.length);
+        } else if (e.kind === 'tap') {
           expect(e.answer.length, e.id).toBeGreaterThan(0);
         }
       }
+      for (const s of l.steps) if (s.kind === 'reflect') ids.push(s.id);
     }
     expect(new Set(ids).size).toBe(ids.length);
+  });
+
+  it('every classify position has a value on its axis', () => {
+    for (const l of LESSONS) {
+      for (const e of lessonExercises(l)) {
+        if (e.kind !== 'classify') continue;
+        const words = resolveRef(e.ref).words;
+        expect(e.positions.length, e.id).toBeGreaterThanOrEqual(1);
+        expect(new Set(e.positions).size, e.id).toBe(e.positions.length);
+        for (const p of e.positions) {
+          const w = words.find((x) => x.pos === p);
+          expect(w, `${e.id} pos ${p}`).toBeDefined();
+          expect(wordValue(w!.note, e.axis), `${e.id} pos ${p} ${e.axis}`).toBeDefined();
+        }
+      }
+    }
+  });
+
+  it('every match has 3–5 existing words with distinct glosses', () => {
+    for (const l of LESSONS) {
+      for (const e of lessonExercises(l)) {
+        if (e.kind !== 'match') continue;
+        expect(e.words.length, e.id).toBeGreaterThanOrEqual(3);
+        expect(e.words.length, e.id).toBeLessThanOrEqual(5);
+        expect(new Set(e.words).size, e.id).toBe(e.words.length);
+        const glosses = e.words.map((k) => plainGloss(getWord(k).gloss).toLowerCase());
+        expect(new Set(glosses).size, `${e.id} glosses`).toBe(glosses.length);
+      }
+    }
   });
 
   it('lessons carry no Quran text of their own', () => {
     // Example notes may cite single letters (ر, ة) but never whole Arabic words.
     for (const l of LESSONS) {
-      for (const s of l.steps) if (s.kind === 'example' || s.kind === 'read') expect(JSON.stringify(s)).not.toMatch(/[\u0621-\u064A][\u064B-\u065F]*[\u0621-\u064A][\u064B-\u065F]*[\u0621-\u064A]/);
+      for (const s of l.steps) {
+        if (s.kind === 'example' || s.kind === 'read' || s.kind === 'reflect') expect(JSON.stringify(s), `${l.id} ${s.kind}`).not.toMatch(ARABIC_WORD);
+        if (s.kind === 'concept' && s.pitfall) expect(s.pitfall, `${l.id} pitfall`).not.toMatch(ARABIC_WORD);
+      }
+      for (const e of lessonExercises(l)) expect(JSON.stringify(e), e.id).not.toMatch(ARABIC_WORD);
+      for (const t of [...l.objectives, ...l.takeaways]) expect(t, l.id).not.toMatch(ARABIC_WORD);
     }
   });
 });

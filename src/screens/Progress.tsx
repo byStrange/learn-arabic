@@ -23,7 +23,7 @@ function studiedAyat(state: AppState): number {
     if (!lp || lp.status === 'new') continue;
     const upTo = lp.status === 'done' ? l.steps.length : lp.stepIndex;
     l.steps.slice(0, upTo).forEach((s) => {
-      if (s.kind !== 'concept' && s.ref?.kind === 'ayah') keys.add(s.ref.key);
+      if ('ref' in s && s.ref?.kind === 'ayah') keys.add(s.ref.key);
     });
   }
   return keys.size;

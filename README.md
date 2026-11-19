@@ -25,8 +25,17 @@ npm run contrast   # WCAG check of every colour token pair, light and dark
 ## Add a lesson
 
 1. Add any new word annotations in `src/content/annotations.ts` (pieces are sliced from the generated word with `n` = number of letters).
-2. Add the lesson to `src/content/lessons.ts` (6–9 steps, at least one tap exercise, an English and an Uzbek bridge, ends with a `read` step, 3–6 vocab keys, 3–4 review exercises).
+2. Add the lesson to `src/content/lessons.ts`: 12–22 steps, 2–4 objectives, 3–5 takeaways, 2–3 concepts (one with a `pitfall`, an English and an Uzbek bridge), 3+ examples, 7+ exercises of at least 3 kinds, exactly one `reflect` step just before the final `read` step, 4–8 vocab keys, 4–6 review exercises. Add it to `UNITS`.
+   `classify` and `match` exercises store no answer: it is computed from the annotations and quran.json, so it cannot be mistyped. No Arabic words are typed in lessons.
 3. `npm test` checks that every key, highlight and answer resolves and ids are unique.
+
+## Notes
+
+Write in the margin of any lesson (pencil column on wide screens), under any ayah in Read, in the session Notes sheet, and in the teach-back step. The Notes screen lists them (search, edit, Download .md). Notes live in `state.notes`, so they are part of Export / Import progress.
+
+## Curialy AI (optional, your own key)
+
+Settings → Curialy AI: paste your Curialy Developer API key and press Connect. The key is stored only in this browser (`qg:ai`), is never in the progress export, and requests go straight to curialy.tech and are charged to your API balance. Nothing is sent unless you press an AI button. AI practice questions are accepted only when the app recomputes the same answer from the annotations; Arabic text is never taken from the model. Built so far: the client, key settings and the question validator (`src/lib/ai`). The buttons (Explain my mistake, AI practice set, teach-back feedback, revision sheet) are not wired into the screens yet.
 
 ## Data
 

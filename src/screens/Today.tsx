@@ -3,7 +3,7 @@ import { Flame, Snowflake } from 'lucide-react';
 import { AyahView } from '../components/AyahView';
 import { getAyah } from '../data/quran';
 import { navigate } from '../lib/router';
-import { ayahOfTheDay, buildDailySession, summarize } from '../lib/session';
+import { ayahOfTheDay, buildDailySession, nextLesson, summarize } from '../lib/session';
 import { answersToKeep, currentStreak, goalProgress, isKept, weekDays } from '../lib/streak';
 import { shortDate } from '../lib/date';
 import { useApp } from '../state/AppState';
@@ -33,6 +33,7 @@ export function Today() {
   const weekCount = week.filter((d) => d.kept).length;
   const items = useMemo(() => buildDailySession(state, today), [state, today]);
   const sum = summarize(items);
+  const nextL = nextLesson(state);
   const aotd = getAyah(ayahOfTheDay(state, today));
 
   const lp = sum.lessonId ? state.lessons[sum.lessonId] : undefined;
@@ -79,6 +80,12 @@ export function Today() {
             Short on time? Read one ayah
           </a>
         </div>
+        {nextL && (
+          <p className="next-lesson muted">
+            Next lesson: Lesson {nextL.order} · {nextL.title} · {nextL.objectives[0]}{' '}
+            <a href={`#/lesson/${nextL.id}`}>Open lesson</a>
+          </p>
+        )}
       </section>
 
       <section className="aotd" aria-labelledby="aotd-h">

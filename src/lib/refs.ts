@@ -57,10 +57,11 @@ export function learnedIn(wordKey: string): Lesson[] {
   return LESSONS.filter((l) => {
     if (l.vocab.includes(wordKey)) return true;
     return l.steps.some((s) => {
-      if (s.kind === 'concept' || s.kind === 'read') return false;
+      if (s.kind === 'match') return s.words.includes(wordKey);
+      if (s.kind === 'concept' || s.kind === 'read' || s.kind === 'reflect') return false;
       const ref = s.ref;
       if (!ref || ref.kind !== 'ayah' || ref.key !== ayahKey) return false;
-      const set = s.kind === 'tap' ? s.answer : s.kind === 'choice' ? s.highlight ?? [] : s.highlight;
+      const set = s.kind === 'tap' ? s.answer : s.kind === 'classify' ? s.positions : s.kind === 'choice' ? s.highlight ?? [] : s.highlight;
       return set.includes(pos);
     });
   });
